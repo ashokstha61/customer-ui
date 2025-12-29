@@ -42,7 +42,7 @@ class _CustomerState extends State<Customer> {
                     height: 24,
                   ),
                   hintText: 'Search..',
-
+                  labelText: 'Search',
                   controller: textcontroller,
                 ),
 

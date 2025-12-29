@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final String hintText;
+  final String labelText;
   final double? width;
   final TextEditingController? controller;
   final VoidCallback? onTap;
@@ -17,7 +18,7 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.width,
     this.controller,
-    this.onTap,
+    this.onTap, required this.labelText,
   });
 
   @override
@@ -34,6 +35,7 @@ class CustomTextField extends StatelessWidget {
           filled: true,
           fillColor: backgroundColor ?? Colors.white,
           hintText: hintText,
+          labelText: labelText,
           prefixIcon: icons != null
               ? Image.asset('assets/images/magnifying.png')
               : null,
