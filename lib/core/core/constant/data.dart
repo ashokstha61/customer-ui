@@ -18,16 +18,7 @@ final customers = [
     'date purchase': '2025/12/12',
     'status ': 'Active',
   },
-  {
-    'name': 'Sofia Chen',
-    'email': 'sofia.chen@email.com',
-    'phone': '+977-9823456789',
-    'city': 'Lalitpur',
-    'image': 'https://via.placeholder.com/150',
-    'loyalty_point': '450',
-    'date purchase': '2025/12/12',
-    'status ': 'Active',
-  },
+
   {
     'name': 'Sofia Chen',
     'email': 'sofia.chen@email.com',

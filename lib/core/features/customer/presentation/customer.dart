@@ -1,3 +1,8 @@
+import 'package:beamer/beamer.dart';
+import 'package:customer/core/core/constant/app_color.dart';
+import 'package:customer/core/provider/add_customer_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:customer/core/core/constant/data.dart';
 import 'package:customer/core/core/widgets/custom_appbar.dart';
 import 'package:customer/core/core/widgets/custom_button.dart';
@@ -5,28 +10,29 @@ import 'package:customer/core/core/widgets/customer_card.dart';
 import 'package:customer/core/core/widgets/customtextfield.dart';
 import 'package:customer/core/core/widgets/singlebutton.dart';
 import 'package:customer/core/features/customer/presentation/card.dart';
-import 'package:flutter/material.dart';
 
-class Customer extends StatefulWidget {
+class Customer extends ConsumerStatefulWidget {
   const Customer({super.key});
 
   @override
-  State<Customer> createState() => _CustomerState();
+  ConsumerState<Customer> createState() => _CustomerState();
 }
 
-class _CustomerState extends State<Customer> {
-  final TextEditingController textcontroller = TextEditingController();
+class _CustomerState extends ConsumerState<Customer> {
+  final TextEditingController textController = TextEditingController();
   int? expandedIndex;
 
   @override
   Widget build(BuildContext context) {
+    final showAddForm = ref.watch(addCustomerVisibleProvider);
+
     return Scaffold(
       appBar: CustomAppbar(
         backIcon: Image.asset('assets/images/backarrow.png'),
         title: 'Customer',
         notification: Image.asset('assets/images/bell.png'),
       ),
-      backgroundColor: const Color(0xffF9F9F9),
+      backgroundColor: AppColor.backgroundColor,
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -43,9 +49,9 @@ class _CustomerState extends State<Customer> {
                   ),
                   hintText: 'Search..',
                   labelText: 'Search',
-                  controller: textcontroller,
+                  controller: textController,
+                  keyboardType: TextInputType.text,
                 ),
-
                 Singlebutton(
                   icon: Image.asset(
                     'assets/images/funnel.png',
@@ -56,8 +62,9 @@ class _CustomerState extends State<Customer> {
                 ),
               ],
             ),
-
             const SizedBox(height: 12),
+
+            if (showAddForm) const ExtendedOnAdded(),
 
             Expanded(
               child: SizedBox(
@@ -85,44 +92,9 @@ class _CustomerState extends State<Customer> {
                 text: 'Add new Customer',
                 iconPath: 'assets/images/addcustomer.png',
                 onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    backgroundColor: Colors.transparent,
-                    builder: (context) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom,
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
-                          ),
-                          child: const ExtendedOnAdded(),
-                        ),
-                      );
-                    },
-                  );
+                  Beamer.of(context).beamToNamed('/customer/add');
                 },
               ),
-              // child: ElevatedButton.icon(
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: Colors.orange,
-              //     padding: const EdgeInsets.symmetric(vertical: 14),
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //   ),
-              //   onPressed: () {
-              //     //
-              //   },
-              //   icon: const Icon(Icons.person_add),
-              //   label: const Text('Add New Customer'),
-              // ),
             ),
           ],
         ),

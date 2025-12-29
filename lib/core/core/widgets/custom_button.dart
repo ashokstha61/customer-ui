@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum ButtonType { elevated, outlined }
 
 class CustomButton extends StatelessWidget {
   final String text;
   final String iconPath;
+  final double? width;
+  final double? height;
   final VoidCallback onPressed;
   final ButtonType buttonType;
   final Color? backgroundColor;
@@ -18,6 +21,8 @@ class CustomButton extends StatelessWidget {
     this.buttonType = ButtonType.elevated,
     this.backgroundColor,
     this.textColor,
+    this.width,
+    this.height,
   });
 
   @override
@@ -34,7 +39,13 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         icon: Image.asset(iconPath, height: 20, width: 20),
-        label: Text(text, style: TextStyle(color: textColor ?? Colors.white)),
+        label: Text(
+          text,
+          style: GoogleFonts.nunito(
+            color: textColor ?? Colors.white,
+            fontSize: 15,
+          ),
+        ),
       );
     } else {
       return OutlinedButton.icon(
@@ -44,7 +55,10 @@ class CustomButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         icon: Image.asset(iconPath, height: 20, width: 20),
-        label: Text(text, style: TextStyle(color: textColor ?? Colors.black)),
+        label: Text(
+          text,
+          style: GoogleFonts.nunito(color: textColor ?? Colors.black),
+        ),
       );
     }
   }

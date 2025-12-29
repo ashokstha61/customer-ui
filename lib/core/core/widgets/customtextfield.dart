@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
   final Widget? icons;
@@ -7,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final String labelText;
   final double? width;
+  final TextInputType keyboardType;
   final TextEditingController? controller;
   final VoidCallback? onTap;
 
@@ -18,7 +20,9 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.width,
     this.controller,
-    this.onTap, required this.labelText,
+    this.onTap,
+    required this.labelText,
+    required this.keyboardType,
   });
 
   @override
@@ -30,12 +34,14 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         onTap: onTap,
         readOnly: onTap != null,
-        style: TextStyle(color: textColor ?? Colors.black),
+        keyboardType: keyboardType,
+        style: GoogleFonts.nunito(color: Colors.black, fontSize: 18),
         decoration: InputDecoration(
           filled: true,
           fillColor: backgroundColor ?? Colors.white,
           hintText: hintText,
           labelText: labelText,
+
           prefixIcon: icons != null
               ? Image.asset('assets/images/magnifying.png')
               : null,
